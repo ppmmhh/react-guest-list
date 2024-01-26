@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import
-
 export default function AddingGuest() {
   //defining const variables
   const [inputFirstName, setInputFirstName] = useState('');
@@ -9,25 +7,31 @@ export default function AddingGuest() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isAttending, setIsAttending] = useState(false);
+  const [guests, setGuests] = useState([]);
 
   //function handle event; save new user on key press enter
-  function handleSubmit(event) {
+  function handleKlick(event) {
     if (event.key === 'Enter') {
       const newGuest = {
         firstName: inputFirstName,
         lastName: inputLastName,
         isAttending: false,
-        userID: userID,
       };
+      setGuests([...guests, newGuest]);
+
+      //clear input fields again
+      setFirstName('');
+      setLastName('');
     }
   }
 
   return (
-    <div>
+    <div data-test-id="guest">
       <header>
         <h1>Guest List</h1>
       </header>
-      <form onSubmit={handleSubmit}>
+
+      <form onKlick={handleKlick}>
         <label>
           First Name:
           <input
@@ -47,8 +51,10 @@ export default function AddingGuest() {
             }}
           />
         </label>
+
         <button>Attend</button>
       </form>
+
       <div>{/* {firstName} {lastName} */}</div>
     </div>
   );
