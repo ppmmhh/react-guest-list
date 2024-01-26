@@ -9,7 +9,7 @@ export default function AddingGuest() {
   const [isAttending, setIsAttending] = useState(false);
   const [guests, setGuests] = useState([]);
 
-  //function handle event; save new user on key press enter
+  //function handle event; save new user on key press enteR
   function handleKlick(event) {
     if (event.key === 'Enter') {
       const newGuestID = guest[guests.length - 1].id + 1;
@@ -24,7 +24,6 @@ export default function AddingGuest() {
       //clear input fields again
       setFirstName('');
       setLastName('');
-      console.log(guests);
     }
   }
 
