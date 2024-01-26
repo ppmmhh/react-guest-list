@@ -12,16 +12,19 @@ export default function AddingGuest() {
   //function handle event; save new user on key press enter
   function handleKlick(event) {
     if (event.key === 'Enter') {
+      const newGuestID = guest[guests.length - 1].id + 1;
       const newGuest = {
         firstName: inputFirstName,
         lastName: inputLastName,
         isAttending: false,
+        id: newGuestID,
       };
       setGuests([...guests, newGuest]);
 
       //clear input fields again
       setFirstName('');
       setLastName('');
+      console.log(guests);
     }
   }
 
@@ -30,12 +33,11 @@ export default function AddingGuest() {
       <header>
         <h1>Guest List</h1>
       </header>
-
       <form onKlick={handleKlick}>
         <label>
           First Name:
           <input
-            placeholder="Michael"
+            placeholder="Enter First Name"
             onChange={(event) => {
               setFirstName(event.target.value);
             }}
@@ -45,17 +47,14 @@ export default function AddingGuest() {
         <label>
           Last Name:
           <input
-            placeholder="Scott"
+            placeholder="Enter Last Name"
             onChange={(event) => {
               setLastName(event.target.value);
             }}
           />
         </label>
-
-        <button>Attend</button>
+        <button>Enter</button>
       </form>
-
-      <div>{/* {firstName} {lastName} */}</div>
     </div>
   );
 }
