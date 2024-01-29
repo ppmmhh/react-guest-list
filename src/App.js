@@ -36,6 +36,7 @@ export default function AddingGuest() {
     const newGuests = [...guests];
     newGuests.push(addedGuest);
     setGuests(newGuests);
+    console.log(guests);
     setFirstName('');
     setLastName('');
   }
@@ -62,10 +63,6 @@ export default function AddingGuest() {
     const deletedGuest = await response.json();
     const newList = guests.filter((user) => user.id !== deletedGuest.id);
     setGuests(newList);
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   return (
