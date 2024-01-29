@@ -34,9 +34,12 @@ export default function AddingGuest() {
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     });
     const addedGuest = await response.json();
-    console.log(addedGuest);
+    const newGuests = [...guests];
+    newGuests.push(addedGuest);
     // add new guest to the list
-    setGuests([...guests, newGuests]);
+    setGuests(newGuests);
+    console.log(addedGuest);
+
     // clear input fields again
     setFirstName('');
     setLastName('');
