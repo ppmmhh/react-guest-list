@@ -10,6 +10,7 @@ export default function AddingGuest() {
 
   const baseUrl = 'http://localhost:4000';
 
+  //fetch guest list from API
   useEffect(() => {
     async function fetchGuests() {
       const response = await fetch(`${baseUrl}/`);
@@ -22,6 +23,7 @@ export default function AddingGuest() {
     });
   });
 
+  //add new guest
   async function newGuest() {
     const response = await fetch(`${baseUrl}/`, {
       method: 'POST',
@@ -31,11 +33,12 @@ export default function AddingGuest() {
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     });
     const addedGuest = await response.json();
-    const newGuests = [...guestList];
+    const newGuests = [...guests];
     newGuests.push(addedGuest);
     setGuests(newGuests);
+    setFirstName('');
+    setLastName('');
   }
-
   // function handle event; save new user on key press enteR
   //function handleClick(event) {
   //if (event.key === 'Enter') {
