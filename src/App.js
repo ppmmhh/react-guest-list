@@ -34,11 +34,9 @@ export default function AddingGuest() {
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     });
     const addedGuest = await response.json();
+    console.log(addedGuest);
     // add new guest to the list
-    const newGuests = [...guests];
-    newGuests.push(addedGuest);
-    setGuests(newGuests);
-    console.log(guests);
+    setGuests([...guests, newGuests]);
     // clear input fields again
     setFirstName('');
     setLastName('');
@@ -60,8 +58,8 @@ export default function AddingGuest() {
       body: JSON.stringify({ attending: !userAttending }),
     });
     const updatedGuest = await response.json();
-    const newGuests = guests.map((user) =>
-      user.id === updatedGuest.id ? updatedGuest : user,
+    const newGuests = guests.map((guest) =>
+      guest.id === updatedGuest.id ? updatedGuest : guest,
     );
     setGuests(newGuests);
   }
@@ -72,7 +70,7 @@ export default function AddingGuest() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    const newList = guests.filter((user) => user.id !== deletedGuest.id);
+    const newList = guests.filter((guest) => guest.id !== deletedGuest.id);
     setGuests(newList);
   }
 
@@ -104,33 +102,34 @@ export default function AddingGuest() {
           </label>
         </div>
       </form>
+
       <div>
         <h2>See who is coming:</h2>
-        {guests.map((user) => (
-          <div key={`user-${user.id}`} data-test-id="guest">
+        {guests.map((guest) => (
+          <div key={`user-${guest.id}`} data-test-id="guest">
             <div>
-              First Name: {user.firstName}
+              First Name: {guest.firstName}
               <br />
-              Last Name: {user.lastName}
+              Last Name: {guest.lastName}
               <br />
-              Attendance: {JSON.stringify(user.attending)}
+              Attendance: {JSON.stringify(guest.attending)}
               <br />
-              <label key={`user-${user.id}`}>
+              <label key={`user-${guest.id}`}>
                 Attending:
                 <input
                   type="checkbox"
-                  checked={user.attending}
-                  aria-label={`${user.firstName} ${user.lastName} attending status`}
-                  onChange={() => isAttending(user.id, user.attending)}
+                  checked={guest.attending}
+                  aria-label={`${guest.firstName} ${guest.lastName} attending status`}
+                  onChange={() => isAttending(guest.id, guest.attending)}
                 />
               </label>
               <br />
             </div>
             <button
               type="button"
-              aria-label={`Remove ${user.firstName} ${user.lastName}`}
+              aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => {
-                removeGuest(user.id).catch((error) => {
+                removeGuest(guest.id).catch((error) => {
                   console.log(error);
                 });
               }}
