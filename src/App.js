@@ -15,6 +15,7 @@ export default function AddingGuest() {
     async function fetchGuests() {
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
+      // guests state linked with fetched data
       setGuests(allGuests);
       setIsLoading(false);
     }
@@ -23,7 +24,7 @@ export default function AddingGuest() {
     });
   });
 
-  // add new guest
+  // create new guest
   async function createGuest() {
     const response = await fetch(`${baseUrl}/`, {
       method: 'POST',
@@ -33,14 +34,23 @@ export default function AddingGuest() {
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     });
     const addedGuest = await response.json();
+    // add new guest to the list
     const newGuests = [...guests];
     newGuests.push(addedGuest);
     setGuests(newGuests);
     console.log(guests);
+    // clear input fields again
     setFirstName('');
     setLastName('');
   }
+  // create guest when pressing enter
+  const handlePressEnter = async (event) => {
+    if (event.key === 'Enter') {
+      await createGuest();
+    }
+  };
 
+  // update a guest
   async function isAttending(id, userAttending) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',
@@ -56,6 +66,7 @@ export default function AddingGuest() {
     setGuests(newGuests);
   }
 
+  // delete guest
   async function removeGuest(id) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
@@ -74,7 +85,7 @@ export default function AddingGuest() {
             First name:
             <br />
             <input
-              placeholder="Enter your first name"
+              placeholder="Enter first name"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
             />
@@ -88,21 +99,13 @@ export default function AddingGuest() {
               placeholder="Enter last name"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  setFirstName('');
-                  setLastName('');
-                  createGuest().catch((error) => {
-                    console.log(error);
-                  });
-                }
-              }}
+              onPressEnter={handlePressEnter}
             />
           </label>
         </div>
       </form>
       <div>
-        <h2>Registered Guests</h2>
+        <h2>See who is coming:</h2>
         {guests.map((user) => (
           <div key={`user-${user.id}`} data-test-id="guest">
             <div>
