@@ -39,10 +39,6 @@ export default function AddingGuest() {
     // add new guest to the list
     setGuests(newGuests);
     console.log(createGuest);
-
-    // clear input fields again
-    setFirstName('');
-    setLastName('');
   }
 
   // update a guest
@@ -71,6 +67,10 @@ export default function AddingGuest() {
     setGuests(newList);
   }
 
+  if (isLoading) {
+    return <div> Loading.. </div>;
+  }
+
   return (
     <div>
       <h1> Guest List</h1>
@@ -94,13 +94,15 @@ export default function AddingGuest() {
               placeholder="Enter last name"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
-              onKeyEnter={(event) => {
+              onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                   setFirstName('');
                   setLastName('');
                   createGuest().catch((error) => {
                     console.log(error);
                   });
+                }
+              }}
             />
           </label>
         </div>
