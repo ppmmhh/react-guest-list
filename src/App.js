@@ -38,7 +38,7 @@ export default function AddingGuest() {
     newGuests.push(addedGuest);
     // add new guest to the list
     setGuests(newGuests);
-    console.log(addedGuest);
+    console.log(createGuest);
 
     // clear input fields again
     setFirstName('');
