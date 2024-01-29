@@ -44,12 +44,6 @@ export default function AddingGuest() {
     setFirstName('');
     setLastName('');
   }
-  // create guest when pressing enter
-  const handlePressEnter = async (event) => {
-    if (event.key === 'Enter') {
-      await createGuest();
-    }
-  };
 
   // update a guest
   async function isAttending(id, userAttending) {
@@ -100,7 +94,13 @@ export default function AddingGuest() {
               placeholder="Enter last name"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
-              onPressEnter={handlePressEnter}
+              onKeyEnter={(event) => {
+                if (event.key === 'Enter') {
+                  setFirstName('');
+                  setLastName('');
+                  createGuest().catch((error) => {
+                    console.log(error);
+                  });
             />
           </label>
         </div>
