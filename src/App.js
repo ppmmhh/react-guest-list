@@ -69,82 +69,82 @@ export default function AddingGuest() {
 
   if (isLoading) {
     return <div> Loading.. </div>;
-  }
+  } else {
+    return (
+      <div>
+        <h1> Guest List</h1>
+        <form>
+          <div>
+            <label>
+              First name:
+              <br />
+              <input
+                placeholder="Enter first name"
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Last name:
+              <br />
+              <input
+                placeholder="Enter last name"
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    setFirstName('');
+                    setLastName('');
+                    createGuest().catch((error) => {
+                      console.log(error);
+                    });
+                  }
+                }}
+              />
+            </label>
+          </div>
+        </form>
 
-  return (
-    <div>
-      <h1> Guest List</h1>
-      <form>
         <div>
-          <label>
-            First name:
-            <br />
-            <input
-              placeholder="Enter first name"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Last name:
-            <br />
-            <input
-              placeholder="Enter last name"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  setFirstName('');
-                  setLastName('');
-                  createGuest().catch((error) => {
+          <h2>See who is coming:</h2>
+          {guests.map((guest) => (
+            <div key={`user-${guest.id}`} data-test-id="guest">
+              <div>
+                First Name: {guest.firstName}
+                <br />
+                Last Name: {guest.lastName}
+                <br />
+                Attendance: {JSON.stringify(guest.attending)}
+                <br />
+                <label key={`user-${guest.id}`}>
+                  Attending:
+                  <input
+                    type="checkbox"
+                    checked={guest.attending}
+                    aria-label={`${guest.firstName} ${guest.lastName} attending status`}
+                    onChange={() => isAttending(guest.id, guest.attending)}
+                  />
+                </label>
+                <br />
+              </div>
+              <button
+                type="button"
+                aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+                onClick={() => {
+                  removeGuest(guest.id).catch((error) => {
                     console.log(error);
                   });
-                }
-              }}
-            />
-          </label>
-        </div>
-      </form>
-
-      <div>
-        <h2>See who is coming:</h2>
-        {guests.map((guest) => (
-          <div key={`user-${guest.id}`} data-test-id="guest">
-            <div>
-              First Name: {guest.firstName}
-              <br />
-              Last Name: {guest.lastName}
-              <br />
-              Attendance: {JSON.stringify(guest.attending)}
-              <br />
-              <label key={`user-${guest.id}`}>
-                Attending:
-                <input
-                  type="checkbox"
-                  checked={guest.attending}
-                  aria-label={`${guest.firstName} ${guest.lastName} attending status`}
-                  onChange={() => isAttending(guest.id, guest.attending)}
-                />
-              </label>
-              <br />
+                }}
+              >
+                Remove
+              </button>
+              <hr />
             </div>
-            <button
-              type="button"
-              aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
-              onClick={() => {
-                removeGuest(guest.id).catch((error) => {
-                  console.log(error);
-                });
-              }}
-            >
-              Remove
-            </button>
-            <hr />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
