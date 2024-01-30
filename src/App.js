@@ -8,7 +8,7 @@ export default function AddingGuest() {
   const [isLoading, setIsLoading] = useState(true);
 
   const baseUrl =
-    'http://fcc50277-3661-41cb-b855-b38bc9c965cf-00-3qvtsy9yi6qpg.janeway.replit.dev/guests/';
+    'http://10dfb066-dfcd-4925-acc0-bfba56460290-00-3uq1oilid29fc.kirk.replit.dev/guests/';
 
   // fetch guest list from API
   useEffect(() => {
