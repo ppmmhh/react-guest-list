@@ -38,17 +38,16 @@ export default function AddingGuest() {
     newGuests.push(addedGuest);
     // add new guest to the list
     setGuests(newGuests);
-    console.log(createGuest);
   }
 
   // update a guest
-  async function isAttending(id, userAttending) {
+  async function isAttending(id, guestAttending) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ attending: !userAttending }),
+      body: JSON.stringify({ attending: !guestAttending }),
     });
     const updatedGuest = await response.json();
     const newGuests = guests.map((guest) =>
@@ -63,8 +62,8 @@ export default function AddingGuest() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    const newList = guests.filter((guest) => guest.id !== deletedGuest.id);
-    setGuests(newList);
+    const newGuests = guests.filter((guest) => guest.id !== deletedGuest.id);
+    setGuests(newGuests);
   }
 
   return (
@@ -113,7 +112,7 @@ export default function AddingGuest() {
               </label>
             </div>
           </>
-          <div className="guests">
+          <div className="guestlist">
             <h2>See who is coming:</h2>
             {guests.map((guest) => (
               <div key={`user-${guest.id}`} data-test-id="guest">
@@ -125,7 +124,7 @@ export default function AddingGuest() {
                   <br />
                   Attendance: {JSON.stringify(guest.attending)}
                   <br />
-                  <label htmlFor="Attending" key={`user-${guest.id}`}>
+                  <label htmlFor="Attending" key={`guest-${guest.id}`}>
                     Attending:
                     <input
                       type="checkbox"
