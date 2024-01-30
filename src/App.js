@@ -71,7 +71,7 @@ export default function AddingGuest() {
     return <div> Loading.. </div>;
   } else {
     return (
-      <div>
+      <div className="guestlist">
         <h1> Guest List</h1>
         <form>
           <div>
@@ -79,7 +79,9 @@ export default function AddingGuest() {
               First name:
               <br />
               <input
+                name="firstname"
                 placeholder="Enter first name"
+                className="inputfield"
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
               />
@@ -90,7 +92,9 @@ export default function AddingGuest() {
               Last name:
               <br />
               <input
+                name="lastname"
                 placeholder="Enter last name"
+                className="inputfield"
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
                 onKeyDown={(event) => {
@@ -107,10 +111,11 @@ export default function AddingGuest() {
           </div>
         </form>
 
-        <div>
+        <div className="guests">
           <h2>See who is coming:</h2>
           {guests.map((guest) => (
             <div key={`user-${guest.id}`} data-test-id="guest">
+              className="list"
               <div>
                 First Name: {guest.firstName}
                 <br />
