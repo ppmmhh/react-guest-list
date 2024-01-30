@@ -68,7 +68,7 @@ export default function AddingGuest() {
   }
 
   if (isLoading) {
-    return <div> Loading.. </div>;
+    return 'Loading..';
   } else {
     return (
       <div className="guestlist">
