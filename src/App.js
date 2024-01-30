@@ -66,92 +66,90 @@ export default function AddingGuest() {
     setGuests(newGuests);
   }
 
-  return (
-    <div className="guestlist">
-      <h1> Guest List</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <>
-            <form>
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  } else {
+    return (
+      <div className="guestlist">
+        <h1> Guest List</h1>
+        <form>
+          <div>
+            <label htmlFor="firstName">
+              First name:
+              <br />
+              <input
+                name="firstname"
+                placeholder="Enter first name"
+                className="inputfield"
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+              />
+            </label>
+          </div>
+        </form>
+
+        <div>
+          <label htmlFor="lastName">
+            Last name:
+            <br />
+            <input
+              name="lastname"
+              placeholder="Enter last name"
+              className="inputfield"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  setFirstName('');
+                  setLastName('');
+                  createGuest().catch((error) => {
+                    console.log(error);
+                  });
+                }
+              }}
+            />
+          </label>
+        </div>
+
+        <div className="guestlist">
+          <h2>See who is coming:</h2>
+          {guests.map((guest) => (
+            <div key={`user-${guest.id}`} data-test-id="guest">
+              className="list"
               <div>
-                <label htmlFor="firstName">
-                  First name:
-                  <br />
+                First Name: {guest.firstName}
+                <br />
+                Last Name: {guest.lastName}
+                <br />
+                Attendance: {JSON.stringify(guest.attending)}
+                <br />
+                <label htmlFor="Attending" key={`guest-${guest.id}`}>
+                  Attending:
                   <input
-                    name="firstname"
-                    placeholder="Enter first name"
-                    className="inputfield"
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
+                    type="checkbox"
+                    checked={guest.attending}
+                    aria-label={`${guest.firstName} ${guest.lastName} attending status`}
+                    onChange={() => isAttending(guest.id, guest.attending)}
                   />
                 </label>
-              </div>
-            </form>
-            <div>
-              <label htmlFor="lastName">
-                Last name:
                 <br />
-                <input
-                  name="lastname"
-                  placeholder="Enter last name"
-                  className="inputfield"
-                  value={lastName}
-                  onChange={(event) => setLastName(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                      setFirstName('');
-                      setLastName('');
-                      createGuest().catch((error) => {
-                        console.log(error);
-                      });
-                    }
-                  }}
-                />
-              </label>
-            </div>
-          </>
-          <div className="guestlist">
-            <h2>See who is coming:</h2>
-            {guests.map((guest) => (
-              <div key={`user-${guest.id}`} data-test-id="guest">
-                className="list"
-                <div>
-                  First Name: {guest.firstName}
-                  <br />
-                  Last Name: {guest.lastName}
-                  <br />
-                  Attendance: {JSON.stringify(guest.attending)}
-                  <br />
-                  <label htmlFor="Attending" key={`guest-${guest.id}`}>
-                    Attending:
-                    <input
-                      type="checkbox"
-                      checked={guest.attending}
-                      aria-label={`${guest.firstName} ${guest.lastName} attending status`}
-                      onChange={() => isAttending(guest.id, guest.attending)}
-                    />
-                  </label>
-                  <br />
-                </div>
-                <button
-                  type="button"
-                  aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
-                  onClick={() => {
-                    removeGuest(guest.id).catch((error) => {
-                      console.log(error);
-                    });
-                  }}
-                >
-                  Remove
-                </button>
-                <hr />
               </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
+              <button
+                type="button"
+                aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+                onClick={() => {
+                  removeGuest(guest.id).catch((error) => {
+                    console.log(error);
+                  });
+                }}
+              >
+                Remove
+              </button>
+              <hr />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 }
