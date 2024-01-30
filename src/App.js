@@ -77,7 +77,7 @@ export default function AddingGuest() {
           <>
             <form>
               <div>
-                <label>
+                <label htmlFor="firstName">
                   First name:
                   <br />
                   <input
@@ -91,7 +91,7 @@ export default function AddingGuest() {
               </div>
             </form>
             <div>
-              <label>
+              <label htmlFor="lastName">
                 Last name:
                 <br />
                 <input
@@ -125,7 +125,7 @@ export default function AddingGuest() {
                   <br />
                   Attendance: {JSON.stringify(guest.attending)}
                   <br />
-                  <label key={`user-${guest.id}`}>
+                  <label htmlFor="Attending" key={`user-${guest.id}`}>
                     Attending:
                     <input
                       type="checkbox"
