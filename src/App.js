@@ -74,14 +74,13 @@ export default function AddingGuest() {
   } else {
     return (
       <div className="guestlist">
-        <h1> Guest List</h1>
+        <h1>Guest List</h1>
         <form>
           <div>
-            <label htmlFor="firstName">
+            <label>
               First name:
               <br />
               <input
-                id="firstName"
                 placeholder="Enter first name"
                 className="inputfield"
                 value={firstName}
@@ -92,11 +91,10 @@ export default function AddingGuest() {
         </form>
 
         <div>
-          <label htmlFor="lastName">
+          <label>
             Last name:
             <br />
             <input
-              id="lastName"
               placeholder="Enter last name"
               className="inputfield"
               value={lastName}
@@ -126,7 +124,7 @@ export default function AddingGuest() {
                 <br />
                 Attendance: {JSON.stringify(guest.attending)}
                 <br />
-                <label htmlFor="Attending" key={`guest-${guest.id}`}>
+                <label key={`guest-${guest.id}`}>
                   Attending:
                   <input
                     type="checkbox"
@@ -146,7 +144,7 @@ export default function AddingGuest() {
                   });
                 }}
               >
-                Remove
+                Delete
               </button>
               <hr />
             </div>
