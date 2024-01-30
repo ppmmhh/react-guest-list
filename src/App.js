@@ -31,7 +31,10 @@ export default function AddingGuest() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ firstName: firstName, lastName: lastName }),
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+      }),
     });
     const addedGuest = await response.json();
     const newGuests = [...guests];
@@ -78,7 +81,7 @@ export default function AddingGuest() {
               First name:
               <br />
               <input
-                name="firstname"
+                id="firstName"
                 placeholder="Enter first name"
                 className="inputfield"
                 value={firstName}
@@ -93,7 +96,7 @@ export default function AddingGuest() {
             Last name:
             <br />
             <input
-              name="lastname"
+              id="lastName"
               placeholder="Enter last name"
               className="inputfield"
               value={lastName}
