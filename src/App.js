@@ -70,7 +70,7 @@ export default function AddingGuest() {
   }
 
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">Loading..</div>;
   } else {
     return (
       <div className="guestlist">
@@ -81,7 +81,7 @@ export default function AddingGuest() {
               First name:
               <br />
               <input
-                placeholder="Enter first name"
+                placeholder="type first name"
                 className="inputfield"
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
@@ -95,7 +95,7 @@ export default function AddingGuest() {
             Last name:
             <br />
             <input
-              placeholder="Enter last name"
+              placeholder="type last name"
               className="inputfield"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
@@ -122,7 +122,7 @@ export default function AddingGuest() {
                 <br />
                 Last Name: {guest.lastName}
                 <br />
-                Attendance: {JSON.stringify(guest.attending)}
+                Coming: {JSON.stringify(guest.attending)}
                 <br />
                 <label key={`guest-${guest.id}`}>
                   Attending:
