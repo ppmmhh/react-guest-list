@@ -82,8 +82,6 @@ export default function AddingGuest() {
               First name:
               <br />
               <input
-                name="firstname"
-                placeholder="enter first name"
                 className="inputfield"
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
@@ -96,9 +94,7 @@ export default function AddingGuest() {
               Last name:
               <br />
               <input
-                name="lastname"
                 placeholder="enter last name"
-                className="inputfield"
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
                 onKeyDown={(event) => {
