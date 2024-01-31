@@ -75,7 +75,7 @@ export default function AddingGuest() {
   } else {
     return (
       <div className="guestlist">
-        <h1>Guest List</h1>
+        <h1>Guest List:</h1>
         <form>
           <div>
             <label>
