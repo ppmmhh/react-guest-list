@@ -77,39 +77,33 @@ export default function AddingGuest() {
         <h1>Guest List</h1>
         <form>
           <div>
-            <label>
-              First name:
-              <br />
-              <input
-                placeholder="type first name"
-                className="inputfield"
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            </label>
+            First name:
+            <input
+              placeholder="type first name"
+              className="inputfield"
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
           </div>
         </form>
 
         <div>
-          <label>
-            Last name:
-            <br />
-            <input
-              placeholder="type last name"
-              className="inputfield"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  setFirstName('');
-                  setLastName('');
-                  createGuest().catch((error) => {
-                    console.log(error);
-                  });
-                }
-              }}
-            />
-          </label>
+          Last name:
+          <input
+            placeholder="type last name"
+            className="inputfield"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                setFirstName('');
+                setLastName('');
+                createGuest().catch((error) => {
+                  console.log(error);
+                });
+              }
+            }}
+          />
         </div>
 
         <div className="guestlist">
