@@ -21,6 +21,7 @@ export default function AddingGuest() {
     }
     fetchGuests().catch((error) => {
       console.log(error);
+      setIsLoading(false);
     });
   });
 
