@@ -71,12 +71,18 @@ export default function AddingGuest() {
   }
 
   if (isLoading) {
-    return <div className="loading">Loading..</div>;
-  } else {
-    return (
+    return 'Loading...';
+  }
+  return (
       <div className="guestlist">
         <h1>Guest List</h1>
-        <form>
+        <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          createGuest().catch((error) => console.log(error));
+          setFirstName('');
+          setLastName('');
+        }}>
           <div>
             First name
             <input
@@ -111,7 +117,6 @@ export default function AddingGuest() {
           <h2>See who is coming:</h2>
           {guests.map((guest) => (
             <div key={`user-${guest.id}`} data-test-id="guest">
-              className="list"
               <div>
                 First Name: {guest.firstName}
                 <br />
