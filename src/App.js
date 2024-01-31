@@ -15,15 +15,16 @@ export default function AddingGuest() {
     async function fetchGuests() {
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
+
       // guests state linked with fetched data
       setGuests(allGuests);
       setIsLoading(false);
     }
+
     fetchGuests().catch((error) => {
       console.log(error);
-      setIsLoading(false);
     });
-  });
+  }, []);
 
   // create new guest
   async function createGuest() {
@@ -38,10 +39,9 @@ export default function AddingGuest() {
       }),
     });
     const addedGuest = await response.json();
-    const newGuests = [...guests];
-    newGuests.push(addedGuest);
-    // add new guest to the list
-    setGuests(newGuests);
+    setGuests([...guests, addedGuest]);
+
+    console.log(guests);
   }
 
   // update a guest
@@ -71,15 +71,16 @@ export default function AddingGuest() {
   }
 
   if (isLoading) {
-    return <div>Loading..</div>;
+    return <div className="loading">Loading..</div>;
   } else {
     return (
-      <div>
+      <div className="guestlist">
         <h1>Guest List</h1>
         <form>
           <div>
             First name
             <input
+              name="firstname"
               placeholder="type first name"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
@@ -90,6 +91,7 @@ export default function AddingGuest() {
         <div>
           Last name
           <input
+            name="lastname"
             placeholder="type last name"
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
@@ -105,7 +107,7 @@ export default function AddingGuest() {
           />
         </div>
 
-        <div>
+        <div className="guests">
           <h2>See who is coming:</h2>
           {guests.map((guest) => (
             <div key={`user-${guest.id}`} data-test-id="guest">
