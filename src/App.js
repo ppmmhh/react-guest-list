@@ -27,7 +27,7 @@ export default function AddingGuest() {
   }, []);
 
   // create new guest
-  async function createGuest() {
+  const createGuest = async () => {
     const response = await fetch(`${baseUrl}/`, {
       method: 'POST',
       headers: {
@@ -42,7 +42,7 @@ export default function AddingGuest() {
     const newGuests = [...guests];
     newGuests.push(addedGuest);
     setGuests(newGuests);
-  }
+  };
 
   // update a guest
   async function isAttending(id, guestAttending) {
@@ -83,7 +83,9 @@ export default function AddingGuest() {
               name="firstname"
               placeholder="enter first name"
               value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
             />
           </label>
         </div>
