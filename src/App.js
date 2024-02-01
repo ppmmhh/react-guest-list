@@ -71,10 +71,10 @@ export default function AddingGuest() {
   }
 
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return <div>Loading...</div>;
   } else {
     return (
-      <div className="guestlist">
+      <div>
         <h1>Guest List:</h1>
         <form>
           <div>
@@ -111,7 +111,7 @@ export default function AddingGuest() {
           </div>
         </form>
 
-        <div className="guestlist">
+        <div>
           <h2>See who's coming:</h2>
           {guests.map((guest) => (
             <div
