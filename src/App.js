@@ -51,27 +51,25 @@ export default function AddingGuest() {
   };
 
   // update a guest
-  async function isAttending(id, guestAttending) {
-    const response = await fetch(`${baseUrl}/${id}`, {
+  const isAttending = async (id, guestAttending) => {
+    await fetch(`${baseUrl}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ attending: !guestAttending }),
     });
-    const updatedGuest = await response.json();
-    const newGuests = guests.map((guest) =>
-      guest.id === updatedGuest.id ? updatedGuest : guest,
-    );
-    setGuests(newGuests);
-  }
+    setGuests((prevGuests) => prevGuests.filter((user) => user.id !== id));
+  };
 
   // delete guest
   async function removeGuest(id) {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
     });
-    setGuests((prevGuests) => prevGuests.filter((user) => user.id !== id));
+    const deletedGuest = await response.json();
+    const newGuests = guests.filter((guest) => guest.id !== deletedGuest.id);
+    setGuests(newGuests);
 
     removeGuest().catch((error) => {
       console.error('Error removing guest:', error);
