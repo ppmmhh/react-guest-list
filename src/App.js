@@ -13,8 +13,10 @@ export default function AddingGuest() {
   // fetch guest list from API
   useEffect(() => {
     async function fetchGuests() {
+      console.log('Fetching guests...');
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
+      console.log('Fetched guests:', allGuests);
 
       // guests state linked with fetched data
       setGuests(allGuests);
@@ -22,7 +24,7 @@ export default function AddingGuest() {
     }
 
     fetchGuests().catch((error) => {
-      console.log(error);
+      console.error('Error fetching guests', error);
     });
   }, []);
 
@@ -42,6 +44,10 @@ export default function AddingGuest() {
     const newGuests = [...guests];
     newGuests.push(addedGuest);
     setGuests(newGuests);
+
+    createGuest().catch((error) => {
+      console.error('Error creating guest:', error);
+    });
   };
 
   // update a guest
@@ -68,6 +74,10 @@ export default function AddingGuest() {
     const deletedGuest = await response.json();
     const newGuests = guests.filter((guest) => guest.id !== deletedGuest.id);
     setGuests(newGuests);
+
+    removeGuest().catch((error) => {
+      console.error('Error removing guest:', error);
+    });
   }
 
   if (isLoading) {
@@ -128,7 +138,7 @@ export default function AddingGuest() {
                   <input
                     type="checkbox"
                     checked={guest.attending}
-                    aria-label={`${guest.firstName} ${guests.lastName} attending status`}
+                    aria-label={`${guest.firstName} ${guest.lastName} attending status`}
                     onChange={() => isAttending(guest.id, guest.attending)}
                   />
                 </label>
