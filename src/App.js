@@ -76,42 +76,38 @@ export default function AddingGuest() {
     return (
       <div>
         <h1>Guest List:</h1>
-        <form>
-          <div>
-            <label>
-              First name:
-              <br />
-              <input
-                name="firstname"
-                placeholder="enter first name"
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            </label>
-          </div>
+        <div>
+          <label>
+            First name
+            <input
+              name="firstname"
+              placeholder="enter first name"
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+            />
+          </label>
+        </div>
 
-          <div>
-            <label>
-              Last name:
-              <br />
-              <input
-                name="lastname"
-                placeholder="enter last name"
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    setFirstName('');
-                    setLastName('');
-                    createGuest().catch((error) => {
-                      console.log(error);
-                    });
-                  }
-                }}
-              />
-            </label>
-          </div>
-        </form>
+        <div>
+          <label>
+            Last name
+            <input
+              name="lastname"
+              placeholder="enter last name"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  setFirstName('');
+                  setLastName('');
+                  createGuest().catch((error) => {
+                    console.log(error);
+                  });
+                }
+              }}
+            />
+          </label>
+        </div>
 
         <div>
           <h2>See who's coming:</h2>
@@ -123,11 +119,8 @@ export default function AddingGuest() {
             >
               <div>
                 First Name: {guest.firstName}
-                <br />
                 Last Name: {guest.lastName}
-                <br />
                 Coming: {JSON.stringify(guest.attending)}
-                <br />
                 <label key={`guest-${guest.id}`}>
                   Attending:
                   <input
@@ -137,7 +130,6 @@ export default function AddingGuest() {
                     onChange={() => isAttending(guest.id, guest.attending)}
                   />
                 </label>
-                <br />
               </div>
               <button
                 type="button"
@@ -150,7 +142,6 @@ export default function AddingGuest() {
               >
                 Remove
               </button>
-              <hr />
             </div>
           ))}
         </div>
