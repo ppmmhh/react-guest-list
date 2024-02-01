@@ -71,7 +71,7 @@ export default function AddingGuest() {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
     });
-    setGuests = guests.filter((guest) => guest.id !== deletedGuest.id);
+    setGuests((prevGuests) => prevGuests.filter((user) => user.id !== id));
 
     removeGuest().catch((error) => {
       console.error('Error removing guest:', error);
